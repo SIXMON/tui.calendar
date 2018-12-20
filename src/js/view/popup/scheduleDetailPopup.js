@@ -10,7 +10,8 @@ var util = require('tui-code-snippet');
 var config = require('../../config'),
     domevent = require('../../common/domevent'),
     domutil = require('../../common/domutil');
-var tmpl = require('../template/popup/scheduleDetailPopup.hbs');
+var tmplDetailAvailability = require('../template/popup/scheduleDetailAvailability.hbs');
+var tmplDetailEvent = require('../template/popup/scheduleDetailEvent.hbs');
 var ARROW_WIDTH_HALF = 8;
 
 /**
@@ -120,10 +121,19 @@ ScheduleDetailPopup.prototype.render = function(viewModel) {
     var layer = this.layer;
     var self = this;
 
-    layer.setContent(tmpl({
-        schedule: viewModel.schedule,
-        calendar: viewModel.calendar
-    }));
+    console.log('kind:', viewModel.schedule.kind);
+    if (viewModel.schedule.kind === 'o') {
+        layer.setContent(tmplDetailAvailability({
+            schedule: viewModel.schedule,
+            calendar: viewModel.calendar
+        }));
+    } else {
+        layer.setContent(tmplDetailEvent({
+            schedule: viewModel.schedule,
+            calendar: viewModel.calendar
+        }));
+    }
+
     layer.show();
     this._setPopupPositionAndArrowDirection(viewModel.event);
 
