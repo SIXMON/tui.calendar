@@ -1,6 +1,6 @@
 /*!
  * TOAST UI Calendar
- * @version 1.8.0 | Wed Dec 19 2018
+ * @version 1.8.1 | Thu Dec 20 2018
  * @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
  * @license MIT
  */
