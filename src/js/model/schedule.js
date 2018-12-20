@@ -251,6 +251,11 @@ Schedule.prototype.init = function(options) {
     this.goingDuration = options.goingDuration || 0;
     this.comingDuration = options.comingDuration || 0;
     this.state = options.state || '';
+    this.kind = options.kind || '';
+    this.isValidated = options.isValidated || false;
+    this.teacher = options.teacher || {};
+    this.activity = options.activity || null;
+    this.activityInstance = options.activity_instance || null;
 
     if (this.isAllDay) {
         this.setAllDayPeriod(options.start, options.end);

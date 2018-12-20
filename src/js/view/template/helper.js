@@ -289,7 +289,7 @@ Handlebars.registerHelper({
     'alldayTitle-tmpl': function() {
         var className = config.classname('left-content');
 
-        return '<span class="' + className + '">All Day</span>';
+        return '<span class="' + className + '">Journée Entière</span>';
     },
 
     'allday-tmpl': function(model) {
@@ -442,15 +442,20 @@ Handlebars.registerHelper({
         return schedule.location;
     },
     'popupDetailUser-tmpl': function(schedule) {
-        var creator = util.pick(schedule, 'raw', 'creator', 'name');
-
-        return creator;
+        // var creator = util.pick(schedule, 'raw', 'creator', 'name');
+        // console.log('schedule detail', schedule);
+        return schedule.attendees.map(function(u) {
+            return '<p>' + u.first_name + '</p>';
+        }).join(' ');
     },
     'popupDetailState-tmpl': function(schedule) {
         return schedule.state || 'Busy';
     },
     'popupEdit-tmpl': function() {
         return 'Edit';
+    },
+    'popupValidate-tmpl': function() {
+        return 'Validate';
     },
     'popupDelete-tmpl': function() {
         return 'Delete';

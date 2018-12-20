@@ -353,7 +353,9 @@ ScheduleCreationPopup.prototype.render = function(viewModel) {
         guideElements = this._getGuideElements(this.guide);
         boxElement = guideElements.length ? guideElements[0] : null;
     }
+
     layer.setContent(tmpl(viewModel));
+
     this._createDatepicker(viewModel.start, viewModel.end);
     layer.show();
 
