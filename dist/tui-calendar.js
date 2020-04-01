@@ -15016,7 +15016,7 @@ TimeCreation.prototype._createSchedule = function(eventData) {
     var relatedView = eventData.relatedView,
         createRange = eventData.createRange,
         nearestGridTimeY = eventData.nearestGridTimeY,
-        nearestGridEndTimeY = eventData.nearestGridEndTimeY ? eventData.nearestGridEndTimeY : nearestGridTimeY + datetime.millisecondsFrom('minutes', 30),
+        nearestGridEndTimeY = eventData.nearestGridEndTimeY ? eventData.nearestGridEndTimeY : nearestGridTimeY + datetime.millisecondsFrom('minutes', 15),
         baseDate,
         dateStart,
         dateEnd,
@@ -15218,7 +15218,8 @@ var domutil = __webpack_require__(/*! ../../common/domutil */ "./src/js/common/d
 var reqAnimFrame = __webpack_require__(/*! ../../common/reqAnimFrame */ "./src/js/common/reqAnimFrame.js");
 var ratio = __webpack_require__(/*! ../../common/common */ "./src/js/common/common.js").ratio;
 var TZDate = __webpack_require__(/*! ../../common/timezone */ "./src/js/common/timezone.js").Date;
-var MIN30 = (datetime.MILLISECONDS_PER_MINUTES * 30);
+var MIN15 = (datetime.MILLISECONDS_PER_MINUTES * 15);
+// var MIN30 = (datetime.MILLISECONDS_PER_MINUTES * 30);
 var MIN60 = (datetime.MILLISECONDS_PER_MINUTES * 60);
 
 /**
@@ -15392,7 +15393,7 @@ TimeCreationGuide.prototype._getStyleDataFunc = function(viewHeight, hourLength,
     function getStyleData(scheduleData) {
         var gridY = scheduleData.nearestGridY,
             gridTimeY = scheduleData.nearestGridTimeY,
-            gridEndTimeY = scheduleData.nearestGridEndTimeY || gridTimeY + MIN30,
+            gridEndTimeY = scheduleData.nearestGridEndTimeY || gridTimeY + MIN15,
             top, startTime, endTime;
 
         top = common.limit(ratio(hourLength, viewHeight, gridY), [0], [viewHeight]);
@@ -15419,7 +15420,7 @@ TimeCreationGuide.prototype._createGuideElement = function(dragStartEventData) {
     styleData = this._styleStart = styleFunc(dragStartEventData);
 
     start = styleData[1] + hourStart;
-    end = styleData[2] + hourStart || (start + MIN30);
+    end = styleData[2] + hourStart || (start + MIN15);
     top = styleData[0];
     height = (unitData[4] * (end - start) / MIN60);
 
@@ -15460,14 +15461,14 @@ TimeCreationGuide.prototype._onDrag = function(dragEventData) {
             startStyle[0],
             (endStyle[0] - startStyle[0]) + heightOfHalfHour,
             startStyle[1],
-            (endStyle[1] + MIN30)
+            (endStyle[1] + MIN15)
         );
     } else {
         result = this._limitStyleData(
             endStyle[0],
             (startStyle[0] - endStyle[0]) + heightOfHalfHour,
             endStyle[1],
-            (startStyle[1] + MIN30)
+            (startStyle[1] + MIN15)
         );
         result.push(true);
     }
@@ -15726,7 +15727,7 @@ TimeMove.prototype._updateSchedule = function(scheduleData) {
         return;
     }
 
-    timeDiff -= datetime.millisecondsFrom('minutes', 30);
+    timeDiff -= datetime.millisecondsFrom('minutes', 15);
     newStarts = new TZDate(schedule.getStarts().getTime() + timeDiff);
     newEnds = new TZDate(schedule.getEnds().getTime() + timeDiff);
 
@@ -15778,12 +15779,12 @@ TimeMove.prototype._onDragEnd = function(dragEndEventData) {
 
     scheduleData.range = [
         dragStart.timeY,
-        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.5)
+        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.25)
     ];
 
     scheduleData.nearestRange = [
         dragStart.nearestGridTimeY,
-        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.5)
+        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.25)
     ];
 
     this._updateSchedule(scheduleData);
@@ -16328,7 +16329,7 @@ TimeResize.prototype._updateSchedule = function(scheduleData) {
         return;
     }
 
-    timeDiff -= datetime.millisecondsFrom('minutes', 30);
+    timeDiff -= datetime.millisecondsFrom('minutes', 15);
 
     baseDate = new TZDate(relatedView.getDate());
     dateEnd = datetime.end(baseDate);
@@ -16338,8 +16339,8 @@ TimeResize.prototype._updateSchedule = function(scheduleData) {
         newEnds = new TZDate(dateEnd.getTime());
     }
 
-    if (newEnds.getTime() - schedule.getStarts().getTime() < datetime.millisecondsFrom('minutes', 30)) {
-        newEnds = new TZDate(schedule.getStarts().getTime() + datetime.millisecondsFrom('minutes', 30));
+    if (newEnds.getTime() - schedule.getStarts().getTime() < datetime.millisecondsFrom('minutes', 15)) {
+        newEnds = new TZDate(schedule.getStarts().getTime() + datetime.millisecondsFrom('minutes', 15));
     }
 
     /**
@@ -16382,12 +16383,12 @@ TimeResize.prototype._onDragEnd = function(dragEndEventData) {
 
     scheduleData.range = [
         dragStart.timeY,
-        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.5)
+        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.25)
     ];
 
     scheduleData.nearestRange = [
         dragStart.nearestGridTimeY,
-        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.5)
+        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.25)
     ];
 
     this._updateSchedule(scheduleData);
@@ -16630,7 +16631,7 @@ TimeResizeGuide.prototype._onDrag = function(dragEventData) {
 
     height = (this._startHeightPixel + gridYOffsetPixel);
     // at least large than 30min from schedule start time.
-    minHeight = guideTop + ratio(hourLength, viewHeight, 0.5);
+    minHeight = guideTop + ratio(hourLength, viewHeight, 0.25);
     minHeight -= this._startTopPixel;
     timeMinHeight = minHeight;
     minHeight += ratio(minutesLength, viewHeight, goingDuration) + ratio(minutesLength, viewHeight, comingDuration);

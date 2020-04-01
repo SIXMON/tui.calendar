@@ -11,7 +11,8 @@ var domutil = require('../../common/domutil');
 var reqAnimFrame = require('../../common/reqAnimFrame');
 var ratio = require('../../common/common').ratio;
 var TZDate = require('../../common/timezone').Date;
-var MIN30 = (datetime.MILLISECONDS_PER_MINUTES * 30);
+var MIN15 = (datetime.MILLISECONDS_PER_MINUTES * 15);
+// var MIN30 = (datetime.MILLISECONDS_PER_MINUTES * 30);
 var MIN60 = (datetime.MILLISECONDS_PER_MINUTES * 60);
 
 /**
@@ -185,7 +186,7 @@ TimeCreationGuide.prototype._getStyleDataFunc = function(viewHeight, hourLength,
     function getStyleData(scheduleData) {
         var gridY = scheduleData.nearestGridY,
             gridTimeY = scheduleData.nearestGridTimeY,
-            gridEndTimeY = scheduleData.nearestGridEndTimeY || gridTimeY + MIN30,
+            gridEndTimeY = scheduleData.nearestGridEndTimeY || gridTimeY + MIN15,
             top, startTime, endTime;
 
         top = common.limit(ratio(hourLength, viewHeight, gridY), [0], [viewHeight]);
@@ -212,7 +213,7 @@ TimeCreationGuide.prototype._createGuideElement = function(dragStartEventData) {
     styleData = this._styleStart = styleFunc(dragStartEventData);
 
     start = styleData[1] + hourStart;
-    end = styleData[2] + hourStart || (start + MIN30);
+    end = styleData[2] + hourStart || (start + MIN15);
     top = styleData[0];
     height = (unitData[4] * (end - start) / MIN60);
 
@@ -253,14 +254,14 @@ TimeCreationGuide.prototype._onDrag = function(dragEventData) {
             startStyle[0],
             (endStyle[0] - startStyle[0]) + heightOfHalfHour,
             startStyle[1],
-            (endStyle[1] + MIN30)
+            (endStyle[1] + MIN15)
         );
     } else {
         result = this._limitStyleData(
             endStyle[0],
             (startStyle[0] - endStyle[0]) + heightOfHalfHour,
             endStyle[1],
-            (startStyle[1] + MIN30)
+            (startStyle[1] + MIN15)
         );
         result.push(true);
     }
