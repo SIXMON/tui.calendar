@@ -15073,7 +15073,7 @@ TimeCreation.prototype._onDragEnd = function(dragEndEventData) {
             dragStart.nearestGridTimeY,
             eventData.nearestGridTimeY
         ].sort(array.compare.num.asc);
-        range[1] += datetime.millisecondsFrom('hour', 0.5);
+        range[1] += datetime.millisecondsFrom('hour', 0.25);
 
         eventData.createRange = range;
 
@@ -15774,12 +15774,12 @@ TimeMove.prototype._onDragEnd = function(dragEndEventData) {
 
     scheduleData.range = [
         dragStart.timeY,
-        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.5)
+        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.25)
     ];
 
     scheduleData.nearestRange = [
         dragStart.nearestGridTimeY,
-        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.5)
+        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.25)
     ];
 
     this._updateSchedule(scheduleData);
@@ -16378,12 +16378,12 @@ TimeResize.prototype._onDragEnd = function(dragEndEventData) {
 
     scheduleData.range = [
         dragStart.timeY,
-        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.5)
+        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.25)
     ];
 
     scheduleData.nearestRange = [
         dragStart.nearestGridTimeY,
-        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.5)
+        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.25)
     ];
 
     this._updateSchedule(scheduleData);
@@ -16626,7 +16626,7 @@ TimeResizeGuide.prototype._onDrag = function(dragEventData) {
 
     height = (this._startHeightPixel + gridYOffsetPixel);
     // at least large than 30min from schedule start time.
-    minHeight = guideTop + ratio(hourLength, viewHeight, 0.5);
+    minHeight = guideTop + ratio(hourLength, viewHeight, 0.25);
     minHeight -= this._startTopPixel;
     timeMinHeight = minHeight;
     minHeight += ratio(minutesLength, viewHeight, goingDuration) + ratio(minutesLength, viewHeight, comingDuration);
