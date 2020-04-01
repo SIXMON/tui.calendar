@@ -26,7 +26,7 @@ var timeCore = {
         // and convert milliseconds value to hours.
         var result = datetime.millisecondsTo('hour', (y * baseMil) / height),
             floored = result | 0,
-            nearest = common.nearest(result - floored, [0, 0.25, 0.5, 0.75, 1]);
+            nearest = common.nearest(result - floored, [0.25, 0.5, 0.75, 1]);
 
         return floored + nearest;
     },
@@ -138,8 +138,12 @@ function getNearestHour(minutes) {
         nearestHour = 0;
     } else if (minutes > 30) {
         nearestHour = 1;
+    } else if (minutes <= 15) {
+        nearestHour = 0.25;
     } else if (minutes <= 30) {
         nearestHour = 0.5;
+    } else if (minutes <= 45) {
+        nearestHour = 0.75;
     }
 
     return nearestHour;

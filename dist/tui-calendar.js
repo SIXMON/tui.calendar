@@ -14673,7 +14673,7 @@ var timeCore = {
         // and convert milliseconds value to hours.
         var result = datetime.millisecondsTo('hour', (y * baseMil) / height),
             floored = result | 0,
-            nearest = common.nearest(result - floored, [0, 0.25, 0.5, 0.75, 1]);
+            nearest = common.nearest(result - floored, [0.25, 0.5, 0.75, 1]);
 
         return floored + nearest;
     },
@@ -14785,8 +14785,12 @@ function getNearestHour(minutes) {
         nearestHour = 0;
     } else if (minutes > 30) {
         nearestHour = 1;
+    } else if (minutes <= 15) {
+        nearestHour = 0.25;
     } else if (minutes <= 30) {
         nearestHour = 0.5;
+    } else if (minutes <= 45) {
+        nearestHour = 0.75;
     }
 
     return nearestHour;
@@ -15073,7 +15077,7 @@ TimeCreation.prototype._onDragEnd = function(dragEndEventData) {
             dragStart.nearestGridTimeY,
             eventData.nearestGridTimeY
         ].sort(array.compare.num.asc);
-        range[1] += datetime.millisecondsFrom('hour', 0.25);
+        range[1] += datetime.millisecondsFrom('hour', 0.5);
 
         eventData.createRange = range;
 
@@ -15774,12 +15778,12 @@ TimeMove.prototype._onDragEnd = function(dragEndEventData) {
 
     scheduleData.range = [
         dragStart.timeY,
-        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.25)
+        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.5)
     ];
 
     scheduleData.nearestRange = [
         dragStart.nearestGridTimeY,
-        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.25)
+        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.5)
     ];
 
     this._updateSchedule(scheduleData);
@@ -16378,12 +16382,12 @@ TimeResize.prototype._onDragEnd = function(dragEndEventData) {
 
     scheduleData.range = [
         dragStart.timeY,
-        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.25)
+        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.5)
     ];
 
     scheduleData.nearestRange = [
         dragStart.nearestGridTimeY,
-        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.25)
+        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.5)
     ];
 
     this._updateSchedule(scheduleData);
@@ -16626,7 +16630,7 @@ TimeResizeGuide.prototype._onDrag = function(dragEventData) {
 
     height = (this._startHeightPixel + gridYOffsetPixel);
     // at least large than 30min from schedule start time.
-    minHeight = guideTop + ratio(hourLength, viewHeight, 0.25);
+    minHeight = guideTop + ratio(hourLength, viewHeight, 0.5);
     minHeight -= this._startTopPixel;
     timeMinHeight = minHeight;
     minHeight += ratio(minutesLength, viewHeight, goingDuration) + ratio(minutesLength, viewHeight, comingDuration);

@@ -265,7 +265,7 @@ TimeCreation.prototype._onDragEnd = function(dragEndEventData) {
             dragStart.nearestGridTimeY,
             eventData.nearestGridTimeY
         ].sort(array.compare.num.asc);
-        range[1] += datetime.millisecondsFrom('hour', 0.25);
+        range[1] += datetime.millisecondsFrom('hour', 0.5);
 
         eventData.createRange = range;
 

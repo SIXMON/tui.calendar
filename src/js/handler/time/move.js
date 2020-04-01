@@ -271,12 +271,12 @@ TimeMove.prototype._onDragEnd = function(dragEndEventData) {
 
     scheduleData.range = [
         dragStart.timeY,
-        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.25)
+        scheduleData.timeY + datetime.millisecondsFrom('hour', 0.5)
     ];
 
     scheduleData.nearestRange = [
         dragStart.nearestGridTimeY,
-        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.25)
+        scheduleData.nearestGridTimeY + datetime.millisecondsFrom('hour', 0.5)
     ];
 
     this._updateSchedule(scheduleData);
