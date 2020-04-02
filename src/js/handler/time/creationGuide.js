@@ -238,7 +238,7 @@ TimeCreationGuide.prototype._onDrag = function(dragEventData) {
         unitData = this._styleUnit,
         startStyle = this._styleStart,
         refreshGuideElement = this._refreshGuideElement.bind(this),
-        heightOfHalfHour,
+        heightOfQuarterHour,
         endStyle,
         result;
 
@@ -246,20 +246,21 @@ TimeCreationGuide.prototype._onDrag = function(dragEventData) {
         return;
     }
 
-    heightOfHalfHour = (unitData[4] / 2);
+    // heightOfHalfHour = (unitData[4] / 2);
+    heightOfQuarterHour = (unitData[4] / 4);
     endStyle = styleFunc(dragEventData);
 
     if (endStyle[0] > startStyle[0]) {
         result = this._limitStyleData(
             startStyle[0],
-            (endStyle[0] - startStyle[0]) + heightOfHalfHour,
+            (endStyle[0] - startStyle[0]) + heightOfQuarterHour,
             startStyle[1],
             (endStyle[1] + MIN15)
         );
     } else {
         result = this._limitStyleData(
             endStyle[0],
-            (startStyle[0] - endStyle[0]) + heightOfHalfHour,
+            (startStyle[0] - endStyle[0]) + heightOfQuarterHour,
             endStyle[1],
             (startStyle[1] + MIN15)
         );
